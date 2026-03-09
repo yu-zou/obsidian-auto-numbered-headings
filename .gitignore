@@ -15,6 +15,9 @@ main.js
 # Exclude sourcemaps
 *.map
 
+# Exclude evidence/test artifacts in src
+src/*.js
+
 # obsidian
 data.json
 
