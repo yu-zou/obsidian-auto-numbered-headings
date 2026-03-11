@@ -15,7 +15,7 @@ export type NumberingFormat = 'hierarchical' | 'flat' | 'per-level';
 export interface HeadingChange {
   from: number;        // character position of number portion to replace
   to: number;          // character position of number portion to replace
-  newText: string;     // new number string
+  insert: string;     // new number string (CM6 ChangeSpec field)
 }
 
 /** Settings consumed by the numbering engine */

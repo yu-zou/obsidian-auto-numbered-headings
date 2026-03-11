@@ -40,7 +40,7 @@ export function createAutoNumberingExtension(
       return tr;
     }
 
-    const headings = parseHeadings(tr.state.doc, tr.state);
+    const headings = parseHeadings(tr.newDoc, tr.state);
     const config: NumberingConfig = {
       format: plugin.settings.numberingFormat,
       separator: plugin.settings.separator,

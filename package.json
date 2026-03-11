@@ -1,6 +1,6 @@
 {
 	"name": "obsidian-auto-numbered-headings",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Automatically numbers headings in your Markdown notes",
 	"main": "main.js",
 	"type": "module",

@@ -12,7 +12,7 @@ function recordChange(
   changes.push({
     from: heading.from,
     to: heading.to,
-    newText: expectedNumber,
+    insert: expectedNumber,
   });
 }
 
