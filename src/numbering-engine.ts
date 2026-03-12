@@ -3,7 +3,8 @@ import { HeadingChange, NumberingConfig, ParsedHeading } from "./types";
 function recordChange(
   changes: HeadingChange[],
   heading: ParsedHeading,
-  expectedNumber: string
+  expectedNumber: string,
+  insertText: string
 ): void {
   if (heading.existingNumber === expectedNumber) {
     return;
@@ -12,7 +13,7 @@ function recordChange(
   changes.push({
     from: heading.from,
     to: heading.to,
-    insert: expectedNumber,
+    insert: insertText,
   });
 }
 
@@ -52,7 +53,10 @@ export function computeRenumbering(
       }
 
       const expectedNumber = counters.join(".");
-      recordChange(changes, heading, expectedNumber);
+      const insertText = counters.length === 1
+        ? expectedNumber + ". "
+        : expectedNumber + " ";
+      recordChange(changes, heading, expectedNumber, insertText);
       prevLevel = level;
     }
 
@@ -72,7 +76,8 @@ export function computeRenumbering(
     counters[level - 1] = current;
 
     const expectedNumber = String(counters[level - 1]);
-    recordChange(changes, heading, expectedNumber);
+    const insertText = expectedNumber + ". ";
+    recordChange(changes, heading, expectedNumber, insertText);
   }
 
   return changes;

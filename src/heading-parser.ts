@@ -89,7 +89,10 @@ export function parseHeadings(doc: Text, state: EditorState): ParsedHeading[] {
     const title = match[3];
     const numberStartInLine = findNumberStart(text, existingNumber, level);
     const from = line.from + numberStartInLine;
-    const to = from + existingNumber.length;
+    const afterNumber = numberStartInLine + existingNumber.length;
+    const separatorMatch = text.slice(afterNumber).match(/^\.\s+/);
+    const separatorLen = separatorMatch ? separatorMatch[0].length : 2;
+    const to = line.from + afterNumber + separatorLen;
 
     headings.push({
       line: line.number - 1,
