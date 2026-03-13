@@ -6,9 +6,6 @@ function recordChange(
   expectedNumber: string,
   insertText: string
 ): void {
-  if (heading.existingNumber === expectedNumber) {
-    return;
-  }
 
   changes.push({
     from: heading.from,
