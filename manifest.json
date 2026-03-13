@@ -1,11 +1,10 @@
 {
 	"id": "auto-numbered-headings",
 	"name": "Auto Numbered Headings",
-	"version": "1.1.0",
+	"version": "1.1.1",
 	"minAppVersion": "0.15.0",
 	"description": "Automatically numbers headings in your Markdown notes.",
 	"author": "User",
 	"authorUrl": "https://obsidian.md",
-
 	"isDesktopOnly": false
 }

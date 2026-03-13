@@ -4,6 +4,7 @@ import type { SyntaxNode } from "@lezer/common";
 import type { ParsedHeading } from "./types";
 
 const NUMBERED_HEADING_REGEX = /^(#{1,6})\s+(\d[\d.]*)\.\s+(.*)$/;
+const DOTLESS_NUMBERED_HEADING_REGEX = /^(#{1,6})\s+(\d+\.\d[\d.]*)\s+(.*)$/;
 const EXCLUDED_NODE_TYPES = new Set([
   "FencedCode",
   "CodeBlock",
@@ -81,6 +82,28 @@ export function parseHeadings(doc: Text, state: EditorState): ParsedHeading[] {
 
     const match = text.match(NUMBERED_HEADING_REGEX);
     if (!match || !match[1] || !match[2] || match[3] === undefined) {
+      const dotlessMatch = text.match(DOTLESS_NUMBERED_HEADING_REGEX);
+      if (!dotlessMatch || !dotlessMatch[1] || !dotlessMatch[2] || dotlessMatch[3] === undefined) {
+        continue;
+      }
+      const level = dotlessMatch[1].length;
+      const existingNumber = dotlessMatch[2];
+      const title = dotlessMatch[3];
+      const numberStartInLine = findNumberStart(text, existingNumber, level);
+      const from = line.from + numberStartInLine;
+      const afterNumber = numberStartInLine + existingNumber.length;
+      const separatorMatch = text.slice(afterNumber).match(/^\s+/);
+      const separatorLen = separatorMatch ? separatorMatch[0].length : 1;
+      const to = line.from + afterNumber + separatorLen;
+
+      headings.push({
+        line: line.number - 1,
+        level,
+        existingNumber,
+        title,
+        from,
+        to,
+      });
       continue;
     }
 

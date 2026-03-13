@@ -53,7 +53,7 @@ export function computeRenumbering(
       }
 
       const expectedNumber = counters.join(".");
-      const insertText = counters.length === 1
+      const insertText = !expectedNumber.includes(".")
         ? expectedNumber + ". "
         : expectedNumber + " ";
       recordChange(changes, heading, expectedNumber, insertText);
